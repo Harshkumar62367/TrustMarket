@@ -229,7 +229,7 @@ contract TrustMarketplace is ReentrancyGuard {
         }
         return items;
     }
-    
+
     function fetchTrustAuthorsCreations(address author) public view returns (TrustMarketItem[] memory) {
         uint256 totalItemCount = _trustIds.current();
         uint256 itemCount = 0;
@@ -251,6 +251,7 @@ contract TrustMarketplace is ReentrancyGuard {
             }
         }
         return items;
+    }
 
     function fetchNFTsByAddress(address addr) public view returns (TrustMarketItem[] memory) {
         uint256 totalItemCount = _trustIds.current();
@@ -276,6 +277,5 @@ contract TrustMarketplace is ReentrancyGuard {
     }
 
     
-    }
 
 }
