@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     // checks if the user is authenticated
     isUserAuthenticated() ? router.push("/marketplace") : router.push("/");
-  }, [authState]);
+  });
 
   const handleClick = async () => {
     await connectWallet();
