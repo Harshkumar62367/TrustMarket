@@ -46,12 +46,14 @@ contract TrustMarketplace is ReentrancyGuard {
     function getReputation(address user)public returns(uint256){
         return reputation[user];
     }
-    // Added code
 
     //Change escrow contract
     function changeEscrow(address _escrowAddr) public {
         escrowContractAddress = _escrowAddr;
     }
+
+    // Added code
+
 
 
     constructor() {

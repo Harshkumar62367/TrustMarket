@@ -16,6 +16,33 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
     string private _symbol;
     string private _dataUrl; 
     string private _metadata;
+
+    // Added code
+    address public TrustDaoAddr;
+    address public deployer;
+
+    //Change trust dao address
+    function setTrustDaoAddr(address _trustDaoAddr) public {
+        require(deployer == msg.sender, "Only the contract deployer can change dao address");
+        TrustDaoAddr = _trustDaoAddr;
+    }
+
+    //Check if the dao has permission to view dataurl or not
+    //token id -> allowed or not for DAO
+    mapping(uint256=>bool) private isallowed;
+
+    function getAllowanceStatus(uint256 tokenid) public returns(bool){
+        return isallowed[tokenid];
+    }
+
+    //Owner/ Buyer give dao access for dispute resolution (Flow: User gives dao access (Approve button)-> User files for fraud claim (File button))
+    function setAllowanceStatus(uint256 tokenid, bool toSet) public {
+        require(ownerOf(tokenid) == msg.sender, "Only owner can give dao access");
+        isallowed[tokenid] = toSet;
+    }
+
+    // Added code
+
     
 
     constructor(
@@ -28,6 +55,7 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
         TrustMarketAddress = TrustMarketAddress_;
         _dataUrl = dataUrl_;
         _metadata = metadata_;
+        deployer = msg.sender;
     }
 
     modifier TrustDataCreator {
@@ -62,8 +90,13 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
         _resetTokenRoyalty(trustId);
     }
 
-    function getDataUrl(uint256 trustId) public view returns (string memory) {
-        require(ownerOf(trustId) == msg.sender, "Only the Trust token owners can perform this operation"); 
+    function getDataUrl(uint256 tokenId) public view returns (string memory) {
+        require(ownerOf(tokenId) == msg.sender || msg.sender == TrustDaoAddr, "Only the Trust token owners can perform this operation"); 
+
+        if(msg.sender == TrustDaoAddr){
+            require(isallowed[tokenId] == true, "The dao has not been given access to the data");
+        }
+
         return _dataUrl;
     }
 

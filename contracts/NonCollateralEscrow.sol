@@ -76,6 +76,24 @@ contract EscrowNC{
     //Trust id-> itemStatus
     mapping(uint256 => itemStatus) public escrowStatus;
 
+    //Get escrow details of a trust id item
+    function getEscrowStatus(uint256 _trustId) public view  returns(address,address,bool,uint256,bool) {
+        address seller = escrowData[_trustId].seller;
+        uint256 finalityTime = escrowData[_trustId].timeWindow;
+        uint256 startTime = escrowData[_trustId].currentBlockTime;
+        uint256 endTime = block.timestamp;
+        address buyer = escrowData[_trustId].buyer;
+        uint256 tokenID = escrowData[_trustId]._tokenId;
+        bool depositStatus = escrowStatus[_trustId].deposited;
+
+        //Has the finality time expired
+        bool isExpired = (endTime - startTime) >= finalityTime ?true:false ;
+
+        return (seller,buyer,isExpired,tokenID,depositStatus);
+
+    }
+
+
     //Deposit tokens that the seller is supposed to receive if the data lives up to the standard after the finality time
 
     // When trade execution flow: Buyer calls trustMarketDeal function(Buy button ) -> money is sent from buyer to datamarket to escrow->
