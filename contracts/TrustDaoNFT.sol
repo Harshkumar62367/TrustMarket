@@ -26,6 +26,12 @@ contract TrustDaoNFT is ERC721URIStorage{
 
     }
 
+    function ownerCount()public view returns(uint256){
+        //Since one address can mint only one NFT number of minted NFT is the total owner count 
+        return _tokenIds.current();
+
+    }
+
 
 
 
