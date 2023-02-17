@@ -1,11 +1,12 @@
 import React from "react";
+import Image from "next/image";
 import { GoPrimitiveDot } from "react-icons/go";
 
 const DataCard = (props) => {
   return (
     <div className="bg-[#101010] rounded-xl p-4 mb-10">
       <div className="w-[18rem] h-[12rem] overflow-hidden  flex justify-center">
-        <img src={props.image} alt="me" className="w-[18rem] rounded-xl mt-0" />
+        <Image src={props.image} alt="me" className="w-[18rem] rounded-xl mt-0" width={288} height={200}/>
       </div>
       <div className="w-[15rem] m-2 mt-5">
         <h1 className="font-bold text-xl">{props.title}</h1>

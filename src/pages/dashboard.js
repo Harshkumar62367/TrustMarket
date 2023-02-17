@@ -2,16 +2,16 @@ import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth-context";
 import Meta from "@/components/Meta";
+import Image from "next/image";
 
-const dashboard = () => {
+const Dashboard = () => {
   const router = useRouter();
-  const { setAuthState, authState, isUserAuthenticated } =
-    useContext(AuthContext);
+  const { isUserAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     // checks if the user is authenticated
     isUserAuthenticated() ? router.push("/dashboard") : router.push("/");
-  }, [authState]);
+  });
 
   return (
     <>
@@ -26,9 +26,11 @@ const dashboard = () => {
             </p>
           </div>
           <div>
-            <img
+            <Image
               src="https://www.kaggle.com/static/images/datasets/Datasets_landing_illo.png"
               alt="dataset"
+              height={200}
+              width={200}
             />
           </div>
         </div>
@@ -37,4 +39,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;
