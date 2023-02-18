@@ -6,19 +6,14 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
 
-
-
-
 contract TrustNFT is ERC721URIStorage, ERC721Royalty {
     using Counters for Counters.Counter;
     Counters.Counter private _trustIds;
 
-    address payable TrustdataCreator;
     address TrustMarketAddress;
     string private _name;
     string private _symbol;
-    string private _dataUrl; 
-    string private _metadata;
+
 
     // Added code
     address public TrustDaoAddr;
@@ -34,7 +29,7 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
     //token id -> allowed or not for DAO
     mapping(uint256=>bool) private isallowed;
 
-    function getAllowanceStatus(uint256 tokenid) public returns(bool){
+    function getAllowanceStatus(uint256 tokenid) public view returns(bool){
         return isallowed[tokenid];
     }
 
@@ -44,35 +39,41 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
         isallowed[tokenid] = toSet;
     }
 
-    // Added code
+    //Token id -> data url mappping
+    mapping(uint256 => string) private dataURL;
 
+    //Token id => Trust data creator
+    mapping(uint256 => address ) TrustdataCreator;
+
+    //Tokenid => Metadata
+    mapping(uint256 => string) tokenMetadata;
+    // Added code
     
 
     constructor(
-        address TrustMarketAddress_, 
-        string memory dataUrl_,
-        string memory metadata_
+        address TrustMarketAddress_
     ) 
     ERC721("TrustMarket", "TNFT") {
-        TrustdataCreator = payable(msg.sender);
         TrustMarketAddress = TrustMarketAddress_;
-        _dataUrl = dataUrl_;
-        _metadata = metadata_;
         deployer = msg.sender;
     }
 
-    modifier TrustDataCreator {
-        require(msg.sender == TrustdataCreator, "Only the TrustMarket data creators can do this operation");
+    modifier TrustDataCreator(uint256 tokenID) {
+
+        require(msg.sender == TrustdataCreator[tokenID], "Only the TrustMarket data creators can do this operation");
         _;
     }
 
-    function TokenCreate(uint96 _TrustfeeNumerator) public TrustDataCreator returns (uint256) {
+    function TokenCreate(uint96 _TrustfeeNumerator, string memory _metadata, string memory _dataUrl) public returns (uint256) {
         _trustIds.increment();
         uint256 TrustnewItemId = _trustIds.current();
         _mint(msg.sender, TrustnewItemId);
         _setTokenURI(TrustnewItemId, _metadata);
-        _setTokenRoyalty(TrustnewItemId, TrustdataCreator, _TrustfeeNumerator);
+        _setTokenRoyalty(TrustnewItemId, msg.sender, _TrustfeeNumerator);  //Replace TrustdataCreator with msg.sender
         setApprovalForAll(TrustMarketAddress, true);
+        dataURL[TrustnewItemId] = _dataUrl; //Setting data URL for the given ID
+        TrustdataCreator[TrustnewItemId] = msg.sender; //Setting creater of the NFT data
+        tokenMetadata[TrustnewItemId] = _metadata; //Storing metadata
 
         return TrustnewItemId;
     }
@@ -81,15 +82,15 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
         return TrustMarketAddress;
     }
 
-    function getTrustMetadata() public view returns (string memory) {
-        return _metadata;
+    function getTrustMetadata(uint256 tokenId) public view returns (string memory) {
+        return tokenMetadata[tokenId];
     }
 
-    function setTokenRoyalty(uint256 trustId, address receiver, uint96 TrustfeeNumerator) external TrustDataCreator { // from OpenZepplin royalty contract
+    function setTokenRoyalty(uint256 trustId, address receiver, uint96 TrustfeeNumerator) external TrustDataCreator(trustId) { // from OpenZepplin royalty contract
         _setTokenRoyalty(trustId, receiver, TrustfeeNumerator);
     }
 
-    function resetTokenRoyalty(uint256 trustId) external TrustDataCreator {  // from OpenZepplin royalty contract
+    function resetTokenRoyalty(uint256 trustId) external TrustDataCreator(trustId) {  // from OpenZepplin royalty contract
         _resetTokenRoyalty(trustId);
     }
 
@@ -100,7 +101,7 @@ contract TrustNFT is ERC721URIStorage, ERC721Royalty {
             require(isallowed[tokenId] == true, "The dao has not been given access to the data");
         }
 
-        return _dataUrl;
+        return dataURL[tokenId];
     }
 
     function _burn(uint256 trustId) internal virtual override(ERC721Royalty, ERC721URIStorage) {

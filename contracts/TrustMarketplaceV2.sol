@@ -15,6 +15,7 @@ interface EscrowContract{
 
 }
 
+
 contract TrustMarketplace is ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _trustIds;
@@ -25,6 +26,13 @@ contract TrustMarketplace is ReentrancyGuard {
     uint256 trustlistingPrice = 0.0025 ether; // price to list NFT
     uint256 trusttransferPrice = 0.0025 ether; // price to transfer NFT to other person
     address escrowContractAddress = address(0);
+    address trustnftContract;
+
+    //Set trust NFT contract 
+    function setTRUSTNFT(address _trustNFT) public {
+        require(msg.sender == owner,"Only owner can change trust NFT address");
+        trustnftContract = _trustNFT;
+    }
 
     // Added code
     //Address (Buyer/Seller) => reputation
@@ -43,7 +51,7 @@ contract TrustMarketplace is ReentrancyGuard {
     }
 
     //Get reputation of a user
-    function getReputation(address user)public returns(uint256){
+    function getReputation(address user)public view returns(uint256){
         return reputation[user];
     }
 
@@ -135,7 +143,7 @@ contract TrustMarketplace is ReentrancyGuard {
         return trustlistingPrice;
     }
 
-    function createTrustMarketItem(address trustnftContract, uint256 tokenId, uint256 price,uint256 finalityTime) public payable nonReentrant {
+    function createTrustMarketItem( uint256 tokenId, uint256 price,uint256 finalityTime) public payable nonReentrant {
         require(price > 0, "Price must be greater than zero");
         require (msg.value == trustlistingPrice, "Listing fee required to create Market item");
 
@@ -174,7 +182,7 @@ contract TrustMarketplace is ReentrancyGuard {
         emit TrustUpdateProduct(id, oldPrice, newPrice);
     }
 
-    function trustMarketDeal(address trustnftContract, uint256 trustId, uint256 price) public payable nonReentrant {
+    function trustMarketDeal(uint256 trustId, uint256 price) public payable nonReentrant {
         uint256 itemPrice = idToMarketItem[trustId].price;
         uint256 tokenId = idToMarketItem[trustId].tokenId;
         address _seller = idToMarketItem[trustId].seller; //Added code
@@ -189,7 +197,7 @@ contract TrustMarketplace is ReentrancyGuard {
     
         require(msg.value >= price, "Insufficient amount transferred");
         // The sent money is transferred to the escrow contract
-        (bool sent,) = EscrowContract(escrowContractAddress).deposit{value:msg.value}(tokenId, price,_seller,_finalityTime,msg.sender,trustId);
+        (bool sent) = EscrowContract(escrowContractAddress).deposit{value:msg.value}(tokenId, price,_seller,_finalityTime,msg.sender,trustId);
         require(sent == true, "Transfer to escrow contract failed");
 
         // Added code
@@ -218,7 +226,7 @@ contract TrustMarketplace is ReentrancyGuard {
         );
     }
     
-    function TrustItemPutToResell(address trustnftContract, uint256 trustId, uint256 newPrice) public payable onlyTrustItemOwner(trustId) {
+    function TrustItemPutToResell(uint256 trustId, uint256 newPrice) public payable onlyTrustItemOwner(trustId) {
         uint256 tokenId = idToMarketItem[trustId].tokenId;
         require(newPrice > 0, "Price must be greater than 0");
         require(msg.value == trustlistingPrice, "Price must be equal to listing price");
