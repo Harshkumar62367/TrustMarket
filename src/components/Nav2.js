@@ -57,6 +57,16 @@ const Nav2 = () => {
             >
               <Link href="/dashboard">Dashboard</Link>
             </li>
+            <li
+              className={
+                focus === 3
+                  ? "hover:underline mx-3 border-pink-300  border-[3px]  bg-pink-50 dark:bg-[#7b2c5d] px-2 py-1"
+                  : "hover:underline px-2 py-1 mx-3 border-[3px] border-none dark:border-gray-800"
+              }
+              onClick={() => setFocus(3)}
+            >
+              <Link href="/vote">Vote</Link>
+            </li>
           </ul>
         </div>
 
@@ -113,7 +123,7 @@ const Nav2 = () => {
         </div>
       </div>
       {menu && (
-        <div className="md:hidden fixed mt-[20rem] right-0 bg-white rounded-xl w-[17rem] py-2 mr-5 shadow-md text-gray-800 dark:text-white dark:bg-gray-700 border-gray-200 dark:border-gray-500 border">
+        <div className="md:hidden fixed mt-[24rem] right-0 bg-white rounded-xl w-[17rem] py-2 mr-5 shadow-md text-gray-800 dark:text-white dark:bg-gray-700 border-gray-200 dark:border-gray-500 border">
           <ul>
             <li>
               <Link href="/">
@@ -151,6 +161,19 @@ const Nav2 = () => {
                   className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
                 >
                   Dashboard
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/vote">
+                <button
+                  onClick={() => {
+                    setMenu(false);
+                    setFocus(1);
+                  }}
+                  className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
+                >
+                  Vote
                 </button>
               </Link>
             </li>
