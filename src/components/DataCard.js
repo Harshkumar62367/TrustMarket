@@ -4,7 +4,7 @@ import { GoPrimitiveDot } from "react-icons/go";
 
 const DataCard = (props) => {
   return (
-    <div className="bg-[#101010] rounded-xl p-4 mb-10">
+    <div className="dark:bg-[#101010] bg-white shadow-md rounded-xl p-4 mb-10">
       <div className="w-[18rem] h-[12rem] overflow-hidden  flex justify-center">
         <Image src={props.image} alt="me" className="w-[18rem] rounded-xl mt-0" width={288} height={200}/>
       </div>
@@ -14,10 +14,10 @@ const DataCard = (props) => {
         <div className="flex justify-between items-center mt-3 w-[110%]">
           <div className="flex items-center gap-1 text-sm">
             <p className="text-pink-500 font-semibold text-base"> {props.price + " ETH"}</p>
-            <GoPrimitiveDot className="text-white text-[0.4rem]" />
-            <p>{props.size} </p>
-            <GoPrimitiveDot className="text-white text-[0.4rem]" />
-            <p> ({props.format})</p>
+            <GoPrimitiveDot className="text-gray-400 dark:text-white text-[0.4rem]" />
+            <p className="text-gray-600">{props.size} </p>
+            <GoPrimitiveDot className="text-gray-400 dark:text-white text-[0.4rem]" />
+            <p className="text-gray-600"> ({props.format})</p>
           </div>
           <button className="bg-pink-500 hover:bg-pink-600 px-5 py-1 rounded-xl">
             Buy
