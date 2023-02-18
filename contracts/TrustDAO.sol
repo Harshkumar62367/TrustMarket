@@ -19,6 +19,8 @@ interface EscrowNC{
 interface TrustNFT {
     function ownerOf(uint256 tokenid) external view returns (address);
     function getAllowanceStatus(uint256 tokenid) external returns(bool);
+    //Retrieve the data url
+    function getDataUrl(uint256 tokenId) external view returns (string memory);
 }
 
 
@@ -35,7 +37,6 @@ contract TrustDao {
         trustMarketAddr = _market;
         escrowAddress = _escrowAddress;
         trustNFTAddress = _trustNFT;
-
     }
 
     //Proposals
@@ -101,7 +102,6 @@ contract TrustDao {
 
         //Check if the finality time has expired or not
         require(isExpired == false, "The finality time has already expired. Cannot claim");
-
 
         //Check if the user has given DAO access to the NFT data or not
         bool isAllowed = TrustNFT(trustNFTAddress).getAllowanceStatus(tokenId);
@@ -246,6 +246,11 @@ contract TrustDao {
         delete expiredIndex[_trustId];
     }
 
+    modifier onlyDaoMember{
+        require(TrustDaoNFT(trustDAONFTAddr).balanceOf(msg.sender) >= 1, "Only DAO member can call this function");
+        _;
+    }
+
     //Get expired unclaimed list
     function getExpiredUnclimedList()public view returns(uint256[] memory) {
         return expiredUnvotedClaimList;
@@ -268,5 +273,12 @@ contract TrustDao {
     function getExpiredClaimDetail(uint256 _trustId) public view returns(expiredDetails memory){
         return expiredData[_trustId];
 
+    }
+
+    // Get the Data url to check for validity of proof
+    function getDataLink(uint256 _trustId) public view onlyDaoMember returns(string memory){
+        uint256 _tokenId = claimIdDetail[_trustId].tokenid;
+        string memory datalink = TrustNFT(trustNFTAddress).getDataUrl(_tokenId);
+        return datalink;
     }
 }
