@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import React, { useEffect, useState, useContext } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { FiX } from "react-icons/fi";
 import { AuthContext } from "@/context/auth-context";
 
 export const useLoaded = () => {
@@ -20,7 +21,7 @@ const Nav2 = () => {
 
   return (
     <div className="bg-opacity-5 backdrop-blur-md drop-shadow-md z-50 font-mono flex flex-row fixed bg-pink-400 dark:bg-gray-800 dark:bg-opacity-5 dark:backdrop-blur-md dark:drop-shadow-md  w-[100vw] items-center justify-center text-gray-800 dark:text-white border-b-[1px] border-gray-200 dark:border-[#2F304E]">
-      <div className="flex items-center justify-evenly w-[100%] md:w-[70rem] px-4 md:px-3 py-3">
+      <div className="flex items-center justify-between  lg:justify-evenly w-[100%] md:w-[75rem] px-4 md:px-3 py-3">
         <div className="flex items-center">
           <Link href="/">
             <p
@@ -60,18 +61,25 @@ const Nav2 = () => {
         </div>
 
         <div className="flex items-center">
-          <div className="bg-yellow-600 bg-opacity-20 max-w-fit text-center rounded-xl px-4 py-1.5 text-yellow-600 font-semibold">
+          <div className="hidden md:hidden lg:flex bg-yellow-600 bg-opacity-20 max-w-fit text-center rounded-xl px-4 py-1.5 text-yellow-600 font-semibold">
             <span>Goerli Testnet</span>
           </div>
-          <div className="ml-2 bg-opacity-50 bg-gray-800 flex items-center pl-3 pr-1 rounded-xl py-1">
-            <h2>{authState.balance.substring(0, 4)} ETH</h2>
-            <div className="bg-opacity-50 bg-gray-700 px-2 py-1 ml-2 rounded-xl flex items-center">
+          <div className="hidden md:flex ml-2 bg-opacity-50 dark:bg-gray-800 lg:flex bg-gray-300 items-center pl-3 pr-1 rounded-xl py-1">
+            <h2 className="text-pink-600">
+              {authState.balance.substring(0, 4)} ETH
+            </h2>
+            <div className="bg-opacity-50 dark:bg-gray-700 bg-gray-400 px-2 py-1 ml-2 rounded-xl flex items-center">
               <h2>
                 {authState.address.substring(0, 6) +
                   "..." +
                   authState.address.substring(38)}
               </h2>
-              <div className="ml-2 h-4 w-4 rounded bg-sky-700"></div>
+              <button
+                className="ml-2 h-4 w-4 rounded bg-sky-700 hover:bg-sky-800 focus:bg-sky-600"
+                onClick={() => {
+                  navigator.clipboard.writeText(authState.address);
+                }}
+              ></button>
             </div>
           </div>
           <button
@@ -100,12 +108,12 @@ const Nav2 = () => {
             }}
             className="animate-pulse md:hidden text-gray-900 bg-orange-50 hover:bg-pink-50 border border-gray-200 focus:ring-[2.5px] focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-lg px-2.5 py-2.5 text-center items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2"
           >
-            <HiMenuAlt3 />
+            {!menu ? <HiMenuAlt3 /> : <FiX />}
           </button>
         </div>
       </div>
       {menu && (
-        <div className="md:hidden fixed mt-[20rem] right-0 bg-white rounded-md w-[12rem] py-2 mr-5 shadow-md text-gray-800 dark:text-white dark:bg-gray-700 border-gray-200 dark:border-gray-500 border">
+        <div className="md:hidden fixed mt-[20rem] right-0 bg-white rounded-xl w-[17rem] py-2 mr-5 shadow-md text-gray-800 dark:text-white dark:bg-gray-700 border-gray-200 dark:border-gray-500 border">
           <ul>
             <li>
               <Link href="/">
@@ -121,7 +129,7 @@ const Nav2 = () => {
               </Link>
             </li>
             <li>
-              <Link href="#about">
+              <Link href="/marketplace">
                 <button
                   onClick={() => {
                     setMenu(false);
@@ -129,12 +137,12 @@ const Nav2 = () => {
                   }}
                   className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
                 >
-                  About
+                  Marketplace
                 </button>
               </Link>
             </li>
             <li>
-              <Link href="#technology">
+              <Link href="/dashboard">
                 <button
                   onClick={() => {
                     setMenu(false);
@@ -142,35 +150,34 @@ const Nav2 = () => {
                   }}
                   className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
                 >
-                  Technology
+                  Dashboard
                 </button>
               </Link>
             </li>
             <li>
-              <Link href="#services">
-                <button
-                  onClick={() => {
-                    setMenu(false);
-                    setFocus(3);
-                  }}
-                  className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
-                >
-                  Services
-                </button>
-              </Link>
+              <div className="ml-4 mt-4 bg-yellow-600 bg-opacity-20 max-w-fit text-center rounded-xl px-3 py-1 text-yellow-600 font-semibold">
+                <span>Goerli Testnet</span>
+              </div>
             </li>
             <li>
-              <Link href="#contact">
-                <button
-                  onClick={() => {
-                    setMenu(false);
-                    setFocus(4);
-                  }}
-                  className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
-                >
-                  Contact
-                </button>
-              </Link>
+              <div className="ml-4 my-4 bg-opacity-50 dark:bg-gray-800 flex text-sm bg-gray-300 items-center pl-2 pr-2 rounded-xl py-1  max-w-fit">
+                <h2 className="text-pink-600">
+                  {authState.balance.substring(0, 4)} ETH
+                </h2>
+                <div className="bg-opacity-50 dark:bg-gray-700 bg-gray-400 px-2 py-1 ml-2 rounded-xl flex items-center">
+                  <h2>
+                    {authState.address.substring(0, 6) +
+                      "..." +
+                      authState.address.substring(38)}
+                  </h2>
+                  <button
+                    className="ml-2 h-4 w-4 rounded bg-sky-700 hover:bg-sky-800 focus:bg-sky-600"
+                    onClick={() => {
+                      navigator.clipboard.writeText(authState.address);
+                    }}
+                  ></button>
+                </div>
+              </div>
             </li>
           </ul>
         </div>

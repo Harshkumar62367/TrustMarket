@@ -22,7 +22,9 @@ export default function Home() {
 
   useEffect(() => {
     // checks if the user is authenticated
-    isUserAuthenticated() ? router.push("/marketplace") : router.push("/");
+    if (isUserAuthenticated()) {
+      router.push("/marketplace");
+    }
   });
 
   const handleClick = async () => {

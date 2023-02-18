@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { FiX } from "react-icons/fi";
 
 export const useLoaded = () => {
   const [loaded, setLoaded] = useState(false);
@@ -102,7 +103,7 @@ const Nav = () => {
             }}
             className="animate-pulse md:hidden text-gray-900 bg-orange-50 hover:bg-pink-50 border border-gray-200 focus:ring-[2.5px] focus:outline-none focus:ring-pink-200 font-medium rounded-lg text-lg px-2.5 py-2.5 text-center items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2"
           >
-            <HiMenuAlt3 />
+            {!menu ? <HiMenuAlt3 /> : <FiX />}
           </button>
         </div>
       </div>

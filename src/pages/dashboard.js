@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth-context";
 import Meta from "@/components/Meta";
-import Image from "next/image";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -10,7 +9,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     // checks if the user is authenticated
-    isUserAuthenticated() ? router.push("/dashboard") : router.push("/");
+    if (!isUserAuthenticated()) {
+      router.push("/");
+    }
   });
 
   return (
@@ -24,14 +25,6 @@ const Dashboard = () => {
               Explore, analyze, and share quality data. Learn more about data
               types, creating, and collaborating.
             </p>
-          </div>
-          <div>
-            <Image
-              src="https://www.kaggle.com/static/images/datasets/Datasets_landing_illo.png"
-              alt="dataset"
-              height={200}
-              width={200}
-            />
           </div>
         </div>
       </div>
