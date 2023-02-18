@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
 
 
 
-contract TrustNFT is ERC721URIStorage, ERC721Royalty {
+contract TrustNFTV1 is ERC721URIStorage, ERC721Royalty {
     using Counters for Counters.Counter;
     Counters.Counter private _trustIds;
 

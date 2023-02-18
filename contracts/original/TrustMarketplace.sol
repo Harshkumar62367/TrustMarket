@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 import "./TrustNFT.sol";
 
-contract TrustMarketplace is ReentrancyGuard {
+contract TrustMarketplaceV1 is ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _trustIds;
     Counters.Counter private _itemsSold;
