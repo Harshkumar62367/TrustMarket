@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-import "./TrustNFT.sol";
+// import "./TrustNFT.sol";
 
 
 interface EscrowContract{
@@ -34,12 +34,17 @@ contract TrustMarketplace is ReentrancyGuard {
         trustnftContract = _trustNFT;
     }
 
+    //Get the current trust nft address
+    function getTrustNFT()public view returns(address){
+        return trustnftContract;
+    }
+
     // Added code
     //Address (Buyer/Seller) => reputation
     //After successfull trade reputation of both seller and buyer goes up
     // After a disputed trade fraud party's reputation get's slashed
     // If reputation reaches -2 (the address is banned from accessing the contract)
-    mapping(address=>uint256) reputation;
+    mapping(address=>int) reputation;
 
     //Increase reputation
     function increaseReputation(address user) public {
@@ -51,12 +56,13 @@ contract TrustMarketplace is ReentrancyGuard {
     }
 
     //Get reputation of a user
-    function getReputation(address user)public view returns(uint256){
+    function getReputation(address user)public view returns(int){
         return reputation[user];
     }
 
     //Change escrow contract
     function changeEscrow(address _escrowAddr) public {
+        require(msg.sender == owner,"Only owner can change");
         escrowContractAddress = _escrowAddr;
     }
 
@@ -197,7 +203,7 @@ contract TrustMarketplace is ReentrancyGuard {
     
         require(msg.value >= price, "Insufficient amount transferred");
         // The sent money is transferred to the escrow contract
-        (bool sent) = EscrowContract(escrowContractAddress).deposit{value:msg.value}(tokenId, price,_seller,_finalityTime,msg.sender,trustId);
+        (bool sent) = EscrowContract(escrowContractAddress).deposit{value:price}(tokenId, price,_seller,_finalityTime,msg.sender,trustId);
         require(sent == true, "Transfer to escrow contract failed");
 
         // Added code
@@ -217,12 +223,12 @@ contract TrustMarketplace is ReentrancyGuard {
 
         emit TrustProductSold(
             idToMarketItem[trustId].trustId,
-            idToMarketItem[trustId].trustnftContract,
-            idToMarketItem[trustId].tokenId,
+            trustnftContract,
+            tokenId,
             idToMarketItem[trustId].creator,
-            idToMarketItem[trustId].seller,
+            _seller,
             payable(msg.sender),
-            idToMarketItem[trustId].price
+            itemPrice
         );
     }
     

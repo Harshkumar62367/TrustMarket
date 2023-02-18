@@ -2,13 +2,13 @@
 pragma solidity ^0.8.7;
 
 //Trust DAO NFT
-interface TrustDaoNFT{
+interface ITrustDaoNFT{
     function balanceOf(address owner) external view returns (uint256);
     function ownerCount()external view returns(uint256);
 
 }
 
-interface EscrowNC{
+interface IEscrowNC{
     function getEscrowStatus(uint256 _trustId) external view  returns(address,address,bool,uint256,bool);
     function withdraw(uint256 _trustId) external returns(bool);
     function sellerSlashWithdraw(uint256 _trustId) external returns(bool);
@@ -16,7 +16,7 @@ interface EscrowNC{
 }
 
 //Trust market NFT
-interface TrustNFT {
+interface ITrustNFT {
     function ownerOf(uint256 tokenid) external view returns (address);
     function getAllowanceStatus(uint256 tokenid) external returns(bool);
     //Retrieve the data url
@@ -88,8 +88,8 @@ contract TrustDao {
     function fraudClaim(uint256 _trustId, string  memory claim) public returns(bool){
 
         //Get details
-        (address seller, address buyer, bool isExpired,uint256 tokenId, bool isDeposited) = EscrowNC(escrowAddress).getEscrowStatus(_trustId);
-        address ownerOfNFT = TrustNFT(trustMarketAddr).ownerOf(tokenId); //Check the current owner of NFT in dispute
+        (address seller, address buyer, bool isExpired,uint256 tokenId, bool isDeposited) = IEscrowNC(escrowAddress).getEscrowStatus(_trustId);
+        address ownerOfNFT = ITrustNFT(trustNFTAddress).ownerOf(tokenId); //Check the current owner of NFT in dispute
 
         //Check if the buyer is the owner of NFT or not
         require(buyer == ownerOfNFT, "The caller has not bought the NFT");
@@ -104,7 +104,7 @@ contract TrustDao {
         require(isExpired == false, "The finality time has already expired. Cannot claim");
 
         //Check if the user has given DAO access to the NFT data or not
-        bool isAllowed = TrustNFT(trustNFTAddress).getAllowanceStatus(tokenId);
+        bool isAllowed = ITrustNFT(trustNFTAddress).getAllowanceStatus(tokenId);
 
         require(isAllowed == true, "Dao has not been given access to DATA");
         
@@ -126,20 +126,20 @@ contract TrustDao {
 
     //Get total number of dao members
     function getMemberCount() public view returns(uint256){
-        return TrustDaoNFT(trustDAONFTAddr).ownerCount();
+        return ITrustDaoNFT(trustDAONFTAddr).ownerCount();
     }
 
     //vote on the latest fraud
     function voteFraudClaims(uint256 _trustId, bool _fraud) public returns(bool){
 
         //Check if the voter is a dao member or not
-        require(TrustDaoNFT(trustDAONFTAddr).balanceOf(msg.sender) >= 1,"The caller has to be a dao member to vote");
+        require(ITrustDaoNFT(trustDAONFTAddr).balanceOf(msg.sender) >= 1,"The caller has to be a dao member to vote");
         //Check if the claim is active or not
         require(activeClaim[_trustId] == true, "You can't vote on inactive claim");
         //Check if the caller has already voted
         require(hasvoted[_trustId][msg.sender] == false,"You can only vote once");
         //Data fetch
-        (address seller, address buyer, bool isExpired,uint256 tokenId, bool isDeposited) = EscrowNC(escrowAddress).getEscrowStatus(_trustId);
+        (address seller, address buyer, bool isExpired,uint256 tokenId, bool isDeposited) = IEscrowNC(escrowAddress).getEscrowStatus(_trustId);
 
         if(isExpired == true){
 
@@ -179,7 +179,7 @@ contract TrustDao {
             //If equal votes
             if(approveCount *2 == totalVotesReceived ){
                 //Normal withdraw
-                bool ret = EscrowNC(escrowAddress).withdraw(_trustId);
+                bool ret = IEscrowNC(escrowAddress).withdraw(_trustId);
                 if(ret == false){
                     revert("Normal withdraw failed");
                 }
@@ -187,7 +187,7 @@ contract TrustDao {
             else if( approveCount * 2 > totalVotesReceived){
                 //The seller has been marked as fraud
                 //Slashed withdraw
-                bool ret = EscrowNC(escrowAddress).sellerSlashWithdraw(_trustId);
+                bool ret = IEscrowNC(escrowAddress).sellerSlashWithdraw(_trustId);
                 if(ret == false){
                     revert("Seller slash withdraw failed");
                 }
@@ -196,7 +196,7 @@ contract TrustDao {
             else{
                 //The buyer has been marked as fraud and the claim is fraud
                 //Slashed buyer
-                bool ret = EscrowNC(escrowAddress).buyerSlashWithdraw(_trustId);
+                bool ret = IEscrowNC(escrowAddress).buyerSlashWithdraw(_trustId);
                 if(ret == false){
                     revert("Buyer slash withdraw failed");
                 }
@@ -220,14 +220,14 @@ contract TrustDao {
 
         //If approve is greater than reject than fraud claim approved slash seller
         if(approve >= reject){
-                bool ret = EscrowNC(escrowAddress).sellerSlashWithdraw(_trustId);
+                bool ret = IEscrowNC(escrowAddress).sellerSlashWithdraw(_trustId);
                 if(ret == false){
                     revert("Seller slash withdraw failed");
                 }
 
         }else{
             //Slash buyer for fraud claim
-                bool ret = EscrowNC(escrowAddress).buyerSlashWithdraw(_trustId);
+                bool ret = IEscrowNC(escrowAddress).buyerSlashWithdraw(_trustId);
                 if(ret == false){
                     revert("Buyer slash withdraw failed");
                 }
@@ -247,7 +247,7 @@ contract TrustDao {
     }
 
     modifier onlyDaoMember{
-        require(TrustDaoNFT(trustDAONFTAddr).balanceOf(msg.sender) >= 1, "Only DAO member can call this function");
+        require(ITrustDaoNFT(trustDAONFTAddr).balanceOf(msg.sender) >= 1, "Only DAO member can call this function");
         _;
     }
 
@@ -278,7 +278,12 @@ contract TrustDao {
     // Get the Data url to check for validity of proof
     function getDataLink(uint256 _trustId) public view onlyDaoMember returns(string memory){
         uint256 _tokenId = claimIdDetail[_trustId].tokenid;
-        string memory datalink = TrustNFT(trustNFTAddress).getDataUrl(_tokenId);
+        string memory datalink = ITrustNFT(trustNFTAddress).getDataUrl(_tokenId);
         return datalink;
+    }
+
+    //Receive function to receive balance
+    receive() external payable{
+
     }
 }

@@ -36,10 +36,16 @@ contract EscrowNC{
 
 
 
-    constructor(address _dataMarket, address _daoContract){
+    constructor(address _dataMarket){
         owner = msg.sender;
         dataMarket = _dataMarket;
-        daoContract = _daoContract;
+    }
+
+    //Function to change DaoContract address
+    function changeDaoAddr(address _daoAddr) public {
+        require(msg.sender == owner,"Only the owner can change the address");
+        daoContract = _daoAddr;
+
     }
 
     //Change the owner
@@ -121,7 +127,7 @@ contract EscrowNC{
 
         require(msg.sender == seller, "Only the seller can withdraw");
         require(escrowStatus[_trustId].deposited == true, "Cannot withdraw without depositing");
-        require(endTime-startTime >= finalityTime, "The finality time has not expired");
+        // require(endTime-startTime >= finalityTime, "The finality time has not expired");
 
 
         //Transfer deposited amount to the seller
@@ -150,7 +156,7 @@ contract EscrowNC{
 
         require(msg.sender == daoContract, "Only the dao contract can withdraw");
         require(escrowStatus[_trustId].deposited == true, "Cannot withdraw without depositing");
-        require(endTime-startTime >= finalityTime, "The finality time has not expired");
+        // require(endTime-startTime >= finalityTime, "The finality time has not expired");
 
         //Slash seller reputation
         Datamarket(dataMarket).decreaseReputation(seller);
@@ -185,7 +191,7 @@ contract EscrowNC{
 
         require(msg.sender == daoContract, "Only the dao contract can withdraw");
         require(escrowStatus[_trustId].deposited == true, "Cannot withdraw without depositing");
-        require(endTime-startTime >= finalityTime, "The finality time has not expired");
+        // require(endTime-startTime >= finalityTime, "The finality time has not expired");
 
         //Slash buyer reputation
         Datamarket(dataMarket).decreaseReputation(buyer);
