@@ -11,11 +11,8 @@ const Footer2 = () => {
         <p>© {year} TrustM(:. All Rights Reserved.</p>
         <p>
           Designed & Developed by{" "}
-          <a
-            className="text-base font-medium text-pink-600"
-            href="https://sudhanshuranjan.live"
-          >
-            Sudhanshu Ranjan
+          <a className="text-base font-medium text-pink-600" href="https://github.com/Harshkumar62367/TrustMarket">
+            TrustM(: Team
           </a>
           .
         </p>

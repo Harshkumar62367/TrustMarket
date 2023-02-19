@@ -1,7 +1,8 @@
 import Meta from "@/components/Meta";
 import React from "react";
 import Image from "next/image";
-import {DataCard} from "@/components/DataCard";
+import { DataCard } from "@/components/DataCard";
+import { ToastContainer, toast } from "react-toastify";
 
 const Marketplace = () => {
   const datatags = [
@@ -25,7 +26,7 @@ const Marketplace = () => {
     {
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       size: "20 kB",
       format: "CSV",
       tags: "Education",
@@ -36,7 +37,7 @@ const Marketplace = () => {
     {
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       size: "20 kB",
       format: "CSV",
       tags: "Education",
@@ -47,7 +48,7 @@ const Marketplace = () => {
     {
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       size: "20 kB",
       format: "CSV",
       tags: "Education",
@@ -57,9 +58,14 @@ const Marketplace = () => {
     },
   ];
 
+  const buyDataset = () => {
+    toast.success("Dataset Purchased");
+  }
+
   return (
     <>
       <Meta title="TrustM(: | Datasets" />
+      <ToastContainer />
 
       <div className="w-[100%]">
         <div className="pt-[6rem] flex justify-between items-center w-[90%] md:w-[80%] lg:w-[80%] m-auto">
@@ -101,7 +107,8 @@ const Marketplace = () => {
         <div className="flex gap-3 flex-wrap max-w-[80%] md:max-w-[70%] lg:max-w-[60%] justify-center items-center mt-6">
           {datatags.map((tag, index) => (
             <button
-              key={index} className="border transition-colors border-pink-600 text-pink-600 hover:text-white hover:bg-pink-600 px-4 py-1 rounded-full text-sm"
+              key={index}
+              className="border transition-colors border-pink-600 text-pink-600 hover:text-white hover:bg-pink-600 px-4 py-1 rounded-full text-sm"
               id={index}
             >
               {tag}
@@ -114,7 +121,9 @@ const Marketplace = () => {
         <section className="flex flex-col w-[80%] items-center justify-center m-auto mt-16">
           <div className="flex justify-between items-center m-auto w-[100%]">
             <span>
-              <h1 className="font-bold text-2xl md:text-3xl lg:text-3xl">Education</h1>
+              <h1 className="font-bold text-2xl md:text-3xl lg:text-3xl">
+                Education
+              </h1>
             </span>
             <button className="text-pink-500 text-sm">See all</button>
           </div>
@@ -130,6 +139,7 @@ const Marketplace = () => {
                 size={post.size}
                 id={post.id}
                 format={post.format}
+                buyDataset={buyDataset}
               />
             ))}
           </div>
@@ -140,7 +150,9 @@ const Marketplace = () => {
         <section className="flex flex-col w-[80%] items-center justify-center m-auto mt-16">
           <div className="flex justify-between items-center m-auto w-[100%]">
             <span>
-              <h1 className="font-bold text-2xl md:text-3xl lg:text-3xl">Agriculture</h1>
+              <h1 className="font-bold text-2xl md:text-3xl lg:text-3xl">
+                Agriculture
+              </h1>
             </span>
             <button className="text-pink-500 text-sm">See all</button>
           </div>
@@ -156,12 +168,12 @@ const Marketplace = () => {
                 size={post.size}
                 id={post.id}
                 format={post.format}
+                buyDataset={buyDataset}
               />
             ))}
           </div>
         </section>
       </div>
-
     </>
   );
 };

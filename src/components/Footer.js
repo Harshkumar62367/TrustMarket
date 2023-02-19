@@ -66,7 +66,7 @@ const Footer = () => {
           © {year} TrustM(:. All Rights Reserved.
         </p>
         <p>
-          Designed & Developed by <a className="text-base font-medium text-pink-600" href="https://sudhanshuranjan.live">Sudhanshu Ranjan</a>.
+          Designed & Developed by <a className="text-base font-medium text-pink-600" href="#">TrustM(: Team</a>.
         </p>
       </div>
     </div>

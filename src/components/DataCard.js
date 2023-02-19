@@ -28,7 +28,7 @@ const DataCard = (props) => {
             <GoPrimitiveDot className="text-gray-400 dark:text-white text-[0.4rem]" />
             <p className="text-gray-600"> ({props.format})</p>
           </div>
-          <button className="bg-pink-500 hover:bg-pink-600 px-5 py-1 rounded-xl">
+          <button onClick={props.buyDataset} className="bg-pink-500 hover:bg-pink-600 px-5 py-1 rounded-xl">
             Buy
           </button>
         </div>

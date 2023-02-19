@@ -3,6 +3,8 @@ import VotingCard from "@/components/VotingCard";
 import { GoPrimitiveDot } from "react-icons/go";
 import Image from "next/image";
 import { FiX } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import Meta from "@/components/Meta";
 
 const Vote = () => {
   const [selected, setSelected] = useState(0);
@@ -13,55 +15,61 @@ const Vote = () => {
       id: "1.",
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       image: "/images/trap.png",
       format: "CSV",
       price: 0.2,
       seller: "0x23ab..32c",
       buyer: "0x23ab..32c",
       size: "20 kB",
-      createdAt:"12 Feb, 2023 12:00:00"
+      createdAt: "12 Feb, 2023 12:00:00",
     },
     {
       id: "2.",
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       image: "/images/trap.png",
       format: "CSV",
       price: 0.2,
       seller: "0x23ab..32c",
       buyer: "0x23ab..32c",
       size: "20 kB",
-      createdAt:"12 Feb, 2023 12:00:00"
+      createdAt: "12 Feb, 2023 12:00:00",
     },
     {
       id: "3.",
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       image: "/images/trap.png",
       format: "CSV",
       price: 0.2,
       seller: "0xf057...c496",
       buyer: "0x23ab..32c",
       size: "20 kB",
-      createdAt:"12 Feb, 2023 12:00:00"
+      createdAt: "12 Feb, 2023 12:00:00",
     },
   ];
+
+  const downloadDataset = () => {
+    toast.success("Dataset Downloaded");
+  };
 
   const handleVote = (status) => {
     setShowPopup(false);
     if (status === "reject") {
-      alert("Rejected");
+      toast.error("Rejected");
     }
     if (status === "accept") {
-      alert("Approved");
+      toast.success("Accepted");
     }
   };
 
   return (
     <div className="min-h-[90vh]">
+      <Meta title="TrustM(: | Vote" />
+      <ToastContainer />
       {showPopup && (
         <div className="fixed h-[100vh] w-[100%] top-0 z-50">
           <div className="h-[100vh] w-[100%] bg-gray-800 bg-opacity-25 backdrop-blur absolute">
@@ -122,7 +130,10 @@ const Vote = () => {
 
               <div>
                 <div className="flex items-center justify-between px-5 pt-5">
-                  <button className="dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:bg-gray-700 bg-gray-700 hover:bg-gray-800 rounded-lg py-2 px-5 text-white">
+                  <button
+                    className="dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:bg-gray-700 bg-gray-700 hover:bg-gray-800 rounded-lg py-2 px-5 text-white"
+                    onClick={downloadDataset}
+                  >
                     Check Dataset
                   </button>
                   <div>

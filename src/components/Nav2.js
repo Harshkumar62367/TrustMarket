@@ -5,9 +5,11 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { FiX } from "react-icons/fi";
 import { AuthContext } from "@/context/auth-context";
+import { useRouter } from "next/router";
 
 export const useLoaded = () => {
   const [loaded, setLoaded] = useState(false);
+  const router = useRouter();
   useEffect(() => setLoaded(true), []);
   return loaded;
 };
@@ -18,6 +20,7 @@ const Nav2 = () => {
   const [focus, setFocus] = useState(0);
   const { theme, setTheme } = useTheme();
   const loaded = useLoaded();
+  const router = useRouter();
 
   return (
     <div className="bg-opacity-5 backdrop-blur-md drop-shadow-md z-50 font-mono flex flex-row fixed bg-pink-400 dark:bg-gray-800 dark:bg-opacity-5 dark:backdrop-blur-md dark:drop-shadow-md  w-[100vw] items-center justify-center text-gray-800 dark:text-white border-b-[1px] border-gray-200 dark:border-[#2F304E]">
@@ -91,6 +94,9 @@ const Nav2 = () => {
                 }}
               ></button>
             </div>
+          </div>
+          <div className="hidden md:hidden lg:flex bg-pink-600 max-w-fit text-center rounded-xl px-4 py-1.5 ml-2 font-semibold">
+            <button onClick={() => router.push("/dashboard")}>Mint Dataset</button>
           </div>
           <button
             type="button"
@@ -200,6 +206,11 @@ const Nav2 = () => {
                     }}
                   ></button>
                 </div>
+              </div>
+            </li>
+            <li>
+              <div className="hidden md:hidden lg:flex bg-pink-600 max-w-fit text-center rounded-xl px-4 py-1.5 ml-4 my-4 font-semibold">
+                <button onClick={() => router.push("/dashboard")}>Mint Dataset</button>
               </div>
             </li>
           </ul>
