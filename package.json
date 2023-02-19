@@ -12,7 +12,10 @@
     "@next/font": "13.1.6",
     "@openzeppelin/contracts": "^4.8.1",
     "aos": "^2.3.4",
+<<<<<<< HEAD
     "axios": "^1.3.3",
+=======
+>>>>>>> 1fdab6652af6d388892da4545923db878f0907af
     "dotenv": "^16.0.3",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",

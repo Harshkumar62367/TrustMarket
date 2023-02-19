@@ -6,10 +6,16 @@ import Image from "next/image";
 import { FiX } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { DataCard2, DataCard3 } from "@/components/DataCard";
+<<<<<<< HEAD
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
 
+=======
+import { ethers } from "ethers";
+import {TrustMarketplaceAddress} from "../constants";
+import TrustMarketABI from "../abi/trustMarketplace.json";
+>>>>>>> 1fdab6652af6d388892da4545923db878f0907af
 
 const Dashboard = () => {
   const router = useRouter();
@@ -18,10 +24,11 @@ const Dashboard = () => {
   const [title, setTitle] = useState();
   const [time, setTime] = useState();
   const [details, setDetails] = useState();
-  const { isUserAuthenticated } = useContext(AuthContext);
+  const {authState, isUserAuthenticated } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
 
+<<<<<<< HEAD
   const uploadFile = async () => {
     // Send the file data to the Web3 Storage API using a fetch() request
     try {
@@ -84,6 +91,8 @@ const Dashboard = () => {
       console.log(error);
     }
   };
+=======
+>>>>>>> 1fdab6652af6d388892da4545923db878f0907af
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -97,11 +106,25 @@ const Dashboard = () => {
     }
   };
 
+  //Get the created Dataset by the authors
+  async function getCreatedDataset(){
+    
+    //Initializing instances
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const TrustMarketContract = new ethers.Contract(TrustMarketplaceAddress,TrustMarketABI,provider);
+    
+    console.log("AuthState",authState);
+    let tx =await TrustMarketContract.fetchTrustAuthorsCreations(authState.address);
+    console.log("Data: ",tx);
+
+  }
+
   useEffect(() => {
     // checks if the user is authenticated
     if (!isUserAuthenticated()) {
       router.push("/");
     }
+    getCreatedDataset();
   });
 
   const handleSubmit = async (e) => {
