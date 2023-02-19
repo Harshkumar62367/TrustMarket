@@ -72,11 +72,11 @@ const Nav2 = () => {
 
         <div className="flex items-center">
           <div className="hidden md:hidden lg:flex bg-yellow-600 bg-opacity-20 max-w-fit text-center rounded-xl px-4 py-1.5 text-yellow-600 font-semibold">
-            <span>Goerli Testnet</span>
+            <span>Hyperspace Testnet</span>
           </div>
           <div className="hidden md:flex ml-2 bg-opacity-50 dark:bg-gray-800 lg:flex bg-gray-300 items-center pl-3 pr-1 rounded-xl py-1">
             <h2 className="text-pink-600">
-              {authState.balance.substring(0, 4)} ETH
+              {authState.balance.substring(0, 4)} TFIL
             </h2>
             <div className="bg-opacity-50 dark:bg-gray-700 bg-gray-400 px-2 py-1 ml-2 rounded-xl flex items-center">
               <h2>
@@ -179,13 +179,13 @@ const Nav2 = () => {
             </li>
             <li>
               <div className="ml-4 mt-4 bg-yellow-600 bg-opacity-20 max-w-fit text-center rounded-xl px-3 py-1 text-yellow-600 font-semibold">
-                <span>Goerli Testnet</span>
+                <span>Hyperspace Testnet</span>
               </div>
             </li>
             <li>
               <div className="ml-4 my-4 bg-opacity-50 dark:bg-gray-800 flex text-sm bg-gray-300 items-center pl-2 pr-2 rounded-xl py-1  max-w-fit">
                 <h2 className="text-pink-600">
-                  {authState.balance.substring(0, 4)} ETH
+                  {authState.balance.substring(0, 4)} TFIL
                 </h2>
                 <div className="bg-opacity-50 dark:bg-gray-700 bg-gray-400 px-2 py-1 ml-2 rounded-xl flex items-center">
                   <h2>

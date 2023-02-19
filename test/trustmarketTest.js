@@ -92,6 +92,8 @@ describe("Trust market", function () {
     console.log("Fetched url, ", meta);
     expect(meta).to.equal(metadata,"Metadata not as expected");
 
+    // 
+
     //3.Seller creates item for listing   Finality time: 15 * 60 * 1000 (15 min) = 900000
     const trustlistingPrice = ethers.utils.parseEther("0.0025") 
     const price = ethers.utils.parseEther("0.1");
@@ -104,6 +106,11 @@ describe("Trust market", function () {
     console.log("Trust ID: ",trustId);
 
     // console.log("Transaction: ",tx);
+
+    // CHECKS (fetchTrustAuthorsCreations(address author))
+    let creationlist = await TrustMarketplace.connect(seller).fetchTrustAuthorsCreations(seller.address);
+    console.log("Author's creation fetched: ", creationlist);
+    
     
       //Check if the new balance of the token is the MarketPlace Contract (OPTIONAL)
     let NFTowner = await TrustNFT.connect(seller).ownerOf(1);
