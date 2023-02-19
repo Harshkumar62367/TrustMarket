@@ -26,7 +26,6 @@
     "tailwindcss-filters": "^3.0.0"
   },
   "devDependencies": {
-    "-": "^0.0.1",
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
     "autoprefixer": "^10.4.13",
     "hardhat": "^2.12.7",
