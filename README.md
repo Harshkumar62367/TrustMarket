@@ -6,7 +6,7 @@ And, Since datamarketplace are permissionsless, there are bound to be a ton of f
 Which is where our <b>Trustmarket</b> fits in. Built on Filecoin with the help of FVM, trustmarket provides a standard for resolving any fraudulent dataset with a DAO that governs the validity of a dataset. In our TrustMarke, whhen a buyer claims that a dataset is been falsely represented, DAO takes a vote deciding validity of dataset and resolve through punishments and refunds mechanisms. Trust market ensures that the buyers are protected in permission-less and decentralized manner.
 
 
-## Deployed Address
+## Deployed Address on FVM
 
 ```
 export const TrustMarketplaceAddress = '0x6c7519B89DD823007AF39947F0d13D577F97e494';
