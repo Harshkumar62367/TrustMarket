@@ -15,6 +15,8 @@ export default function Home() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [correctNetwork, setCorrectNetwork] = useState(false);
   const [balance, setBalance] = useState(0);
+  const hyperSpaceRPC = 'https://api.hyperspace.node.glif.io/rpc/v1';
+
 
   const router = useRouter();
   const { setAuthState, authState, isUserAuthenticated } =
@@ -35,10 +37,10 @@ export default function Home() {
   const getBalance = async () => {
     await connectWallet();
     try {
-      const { ethereum } = window;
+      // const { ethereum } = window;
       if (ethereum) {
         if (currentAccount === "") await connectWallet();
-        const provider = new ethers.providers.Web3Provider(ethereum);
+        const provider = new ethers.providers.JsonRpcProvider(hyperSpaceRPC);
         const balance = await provider.getBalance(currentAccount);
         setBalance(ethers.utils.formatEther(balance));
         return ethers.utils.formatEther(balance);
@@ -61,13 +63,23 @@ export default function Home() {
 
       let chainId = await ethereum.request?.({ method: "eth_chainId" });
       // console.log("Connected to chain:" + chainId);
-      const georliChainId = "0x5";
+      // const georliChainId = "0x5";
+      const hyperspaceId = '0xc45'; //3141
 
-      if (chainId !== georliChainId) {
-        alert("You are not connected to the Georli Testnet!");
+      // if (chainId !== georliChainId) {
+      //   alert("You are not connected to the Georli Testnet!");
+      //   setCurrentAccount(".");
+      //   return;
+      // } else {
+      //   setCorrectNetwork(true);
+      // }
+      console.log("Chainid: ",chainId);
+
+      if(chainId !== hyperspaceId){
+        alert("You are not connected to Hyperspace");
         setCurrentAccount(".");
         return;
-      } else {
+      }else{
         setCorrectNetwork(true);
       }
 
@@ -75,7 +87,7 @@ export default function Home() {
         method: "eth_requestAccounts",
       });
 
-      // console.log("Found account", accounts[0]);
+      console.log("Found account", accounts[0]);
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log("Error connecting to metamask", error);

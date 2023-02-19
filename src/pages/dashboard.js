@@ -6,6 +6,9 @@ import Image from "next/image";
 import { FiX } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { DataCard2, DataCard3 } from "@/components/DataCard";
+import { ethers } from "ethers";
+import {TrustMarketplaceAddress} from "../constants";
+import TrustMarketABI from "../abi/trustMarketplace.json";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -13,9 +16,10 @@ const Dashboard = () => {
   const [dataset, setDataset] = useState();
   const [title, setTitle] = useState();
   const [details, setDetails] = useState();
-  const { isUserAuthenticated } = useContext(AuthContext);
+  const {authState, isUserAuthenticated } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -29,11 +33,25 @@ const Dashboard = () => {
     }
   };
 
+  //Get the created Dataset by the authors
+  async function getCreatedDataset(){
+    
+    //Initializing instances
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const TrustMarketContract = new ethers.Contract(TrustMarketplaceAddress,TrustMarketABI,provider);
+    
+    console.log("AuthState",authState);
+    let tx =await TrustMarketContract.fetchTrustAuthorsCreations(authState.address);
+    console.log("Data: ",tx);
+
+  }
+
   useEffect(() => {
     // checks if the user is authenticated
     if (!isUserAuthenticated()) {
       router.push("/");
     }
+    getCreatedDataset();
   });
 
   const handleSubmit = (e) => {
