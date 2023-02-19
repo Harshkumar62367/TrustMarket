@@ -130,8 +130,8 @@ export default function Home() {
         >
           <div className="flex max-w-[20rem] md:max-w-[none] lg:max-w-[none]  items-center justify-center py-8 gap-20 flex-wrap">
             <div className="text-center">
-              <h1 className="text-4xl font-bold">300+</h1>
-              <p className="text-lg text-pink-600">Members</p>
+              <h1 className="text-4xl font-bold">6+</h1>
+              <p className="text-lg text-pink-600">Datasets</p>
             </div>
             <div className="text-center">
               <h1 className="text-4xl font-bold">10+</h1>
@@ -139,10 +139,10 @@ export default function Home() {
             </div>
             <div className="text-center">
               <h1 className="text-4xl font-bold">15+</h1>
-              <p className="text-lg text-pink-600">Sponsors</p>
+              <p className="text-lg text-pink-600">Verifiers</p>
             </div>
             <div className="text-center">
-              <h1 className="text-4xl font-bold">300+</h1>
+              <h1 className="text-4xl font-bold">30+</h1>
               <p className="text-lg text-pink-600">Assets</p>
             </div>
           </div>
@@ -171,26 +171,15 @@ export default function Home() {
             className="bg-gray-100 dark:bg-[#10111f]  rounded-3xl w-[85%] md:w-[26rem] lg:w-[30rem] mt-10"
           >
             <ul className="p-6 text-justify list-disc pl-10">
-              <li>Lorem Ipsum is simply dummy text of the printing</li>
+              <li>Trustme is a trusted datasets marketplace built on ethereum and uses filecoin at core for nft and file storage. </li>
               <li>
-                It was popularised in the 1960s with the release of Letraset
-                sheets
+                Get trusted datasets from verified sources in seconds.
               </li>
-              <li>Lorem Ipsum is simply dummy text of the printing</li>
+              <li>Did not get the dataset what was claimed to be, apply for verify by our DAO.</li>
               <li>
-                It was popularised in the 1960s with the release of Letraset
-                sheets
+                Get your dataset verified by our DAO and get rewarded.
               </li>
-              <li>Lorem Ipsum is simply dummy text of the printing</li>
-              <li id="technology">
-                It was popularised in the 1960s with the release of Letraset
-                sheets
-              </li>
-              <li>Lorem Ipsum is simply dummy text of the printing</li>
-              <li>
-                It was popularised in the 1960s with the release of Letraset
-                sheets
-              </li>
+              <li>Get a large variety of datasets from a large pool of verified sources.</li>
             </ul>
           </div>
         </div>
@@ -202,8 +191,7 @@ export default function Home() {
         <Heading src="/images/tech-head.png" />
         <div data-aos="fade-up" className="max-w-md text-center m-auto">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut.
+            Trustme uses decentralized network for hosting files and a DAO based system for verifying datasets.
           </p>
         </div>
 
@@ -226,8 +214,7 @@ export default function Home() {
               Dedicated network
             </h1>
             <p className="pt-3 pb-[3rem] max-w-[80%] text-[#888888] dark:text-[#BEBEBE] text-base font-normal ">
-              There is no one who loves pain itself, who seeks after it and
-              wants to have.{" "}
+              No chance of failure since the system is decentralized at all aspects.{" "}
             </p>
           </div>
 
@@ -246,17 +233,16 @@ export default function Home() {
               </div>
             </div>
             <h1 className="text-2xl font-semibold text-pink-400 dark:text-pink-600">
-              Dedicated network
+              Easily Accessable
             </h1>
             <p className="pt-3 pb-[3rem] max-w-[80%] text-[#888888] dark:text-[#BEBEBE] text-base font-normal ">
-              There is no one who loves pain itself, who seeks after it and
-              wants to have.{" "}
+              Access all sorts of data from anywhere at just one tap.{" "}
             </p>
           </div>
 
           <div
             data-aos="fade-up"
-            className="bg-[#ffffff] dark:bg-[#141528] transition duration-150 ease-in-out hover:scale-[102%] max-w-xs flex justify-center flex-col items-center text-center mt-10 drop-shadow-lg"
+            className="bg-[#1f1818] dark:bg-[#141528] transition duration-150 ease-in-out hover:scale-[102%] max-w-xs flex justify-center flex-col items-center text-center mt-10 drop-shadow-lg"
           >
             <div className="my-10 h-[5rem] w-[5rem] border-pink-500 border-2 rounded-full">
               <div className="mt-[-1.2rem]">
@@ -269,14 +255,14 @@ export default function Home() {
               </div>
             </div>
             <h1 className="text-2xl font-semibold text-pink-400 dark:text-pink-600">
-              Dedicated network
+              DAO based
             </h1>
             <p
               id="services"
               className="pt-3 pb-[3rem] max-w-[80%] text-[#888888] dark:text-[#BEBEBE] text-base font-normal "
             >
-              There is no one who loves pain itself, who seeks after it and
-              wants to have.{" "}
+              DAO based system for verifying datasets and rewarding the verifiers.{" "}
+               {" "}
             </p>
           </div>
         </div>
@@ -285,7 +271,7 @@ export default function Home() {
       {/* Tools */}
 
       <section className="mt-[5rem]">
-        <Heading text="Services" />
+        <Heading text="Features" />
 
         <div className="flex flex-col md:flex-row lg:flex-row m-auto justify-center lg:justify-evenly md:justify-evenly items-center mt-10">
           <div data-aos="fade-up" className="mt-10">
@@ -311,7 +297,7 @@ export default function Home() {
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">Datasets</h1>
+                <h1 className="text-2xl font-bold">Secure and Trusted</h1>
               </div>
             </div>
 
@@ -323,7 +309,7 @@ export default function Home() {
                 <Image src="/images/GPS.png" height="50" width="50" alt="gps" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">DAO</h1>
+                <h1 className="text-2xl font-bold">DAO based</h1>
               </div>
             </div>
 
@@ -340,7 +326,7 @@ export default function Home() {
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">Files</h1>
+                <h1 className="text-2xl font-bold">Decentralized Storage</h1>
               </div>
             </div>
           </div>
@@ -349,22 +335,21 @@ export default function Home() {
 
       <section className="flex flex-col items-center justify-center mt-20 text-center">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-20 max-w-[85%]">
-          Every dataset on <span className="text-pink-600">TrustM(:</span> comes
-          with
+          Every dataset on <span className="text-pink-600">TrustM(:</span>
         </h1>
         <h2 className="flex items-start justify-center gap-4 text-xl lg:text-2xl md:text-2xl pb-3">
           <BsFillCheckSquareFill className="text-green-400 text-xl lg:text-2xl md:text-2xl mt-1" />
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+          <p>Verified by our DAO community.</p>
         </h2>
 
         <h2 className="flex items-start justify-center gap-4 text-xl lg:text-2xl md:text-2xl pb-3">
           <BsFillCheckSquareFill className="text-green-400 text-xl lg:text-2xl md:text-2xl mt-1" />
-          <p>Lorem isit amet consectetur adipisicing.</p>
+          <p>Stored on decentralized platforms.</p>
         </h2>
 
         <h2 className="flex items-start justify-center gap-4 text-xl lg:text-2xl md:text-2xl pb-3">
           <BsFillCheckSquareFill className="text-green-400 text-xl lg:text-2xl md:text-2xl mt-1" />
-          <p>Lorem ipsum dolor consectetur adipisicing.</p>
+          <p>Claim fraud if the dataset is not per expectation.</p>
         </h2>
       </section>
 

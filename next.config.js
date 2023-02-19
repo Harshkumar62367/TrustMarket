@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+};
+
+module.exports = {
+  env: {
+    JWT: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0MGM0YzFiZi03ODM4LTQ0NzUtODVlNC0zYjdhMDBkNDI5MDUiLCJlbWFpbCI6InN1ZGhhbnNodXJhbmphbjJrMThAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjBjZDEwYmE5MTM4MGM1MDM2MDNjIiwic2NvcGVkS2V5U2VjcmV0IjoiYWUxZmIxZTE1ZjMwNDI5MzQ4YzAzNDA0YWJkY2U2OTJkYjVhYjNmOGZlZWNjYWU5YTVkMmU4OGQ5OWYzNzllMSIsImlhdCI6MTY3NjM0OTgwNH0.fJhdGt9JpEaqksaIGZBiD9G5y5wRVXOpwxZQG02FAR8',
+  },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

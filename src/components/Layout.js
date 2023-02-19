@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
             <main className="bg-[#ffffff] dark:bg-[#000000] antialiased">
               <Header />
               {children}
-              <Footer />
+              <Footer2 />
             </main>
           </div>
         </>

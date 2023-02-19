@@ -1,5 +1,7 @@
 import React from "react";
 import SaleCard from "@/components/SaleCard";
+import Meta from "@/components/Meta";
+import { ToastContainer, toast } from "react-toastify";
 
 const Sale = () => {
   const data = [
@@ -7,7 +9,7 @@ const Sale = () => {
       id: "1.",
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       image: "/images/trap.png",
       format: "CSV",
       price: 0.2,
@@ -22,7 +24,7 @@ const Sale = () => {
       id: "2.",
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       image: "/images/trap.png",
       format: "CSV",
       price: 0.2,
@@ -37,7 +39,7 @@ const Sale = () => {
       id: "3.",
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       image: "/images/trap.png",
       format: "CSV",
       price: 0.2,
@@ -50,8 +52,14 @@ const Sale = () => {
     },
   ];
 
+  const withdrawFunds = () => {
+    toast.success("Withdrawn Successfully");
+  }
+
   return (
     <div className="pt-24 min-h-[80vh]">
+      <Meta title="TrustM(: | Sale" />
+      <ToastContainer />
       <h1 className='className="pt-24 text-3xl font-semibold text-center'>
         Your DataSets on sale
       </h1>
@@ -71,6 +79,7 @@ const Sale = () => {
             finalityTime={item.finalityTime}
             status={item.status}
             createdAt={item.createdAt}
+            withdrawFunds={withdrawFunds}
           />
         ))}
       </div>

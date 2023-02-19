@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/auth-context";
 import Meta from "@/components/Meta";
@@ -6,16 +6,84 @@ import Image from "next/image";
 import { FiX } from "react-icons/fi";
 import { HiPlus } from "react-icons/hi";
 import { DataCard2, DataCard3 } from "@/components/DataCard";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+
+
 
 const Dashboard = () => {
   const router = useRouter();
   const [image, setImage] = useState();
   const [dataset, setDataset] = useState();
   const [title, setTitle] = useState();
+  const [time, setTime] = useState();
   const [details, setDetails] = useState();
   const { isUserAuthenticated } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+
+  const uploadFile = async () => {
+    // Send the file data to the Web3 Storage API using a fetch() request
+    try {
+      const buffer = await dataset.arrayBuffer();
+      const formData = new FormData();
+      formData.append("file", new Blob([buffer]), "document.pdf");
+      const res = await axios.post(
+        "https://api.web3.storage/upload",
+        formData,
+        {
+          maxBodyLength: "Infinity",
+          headers: {
+            "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      );
+      // const { cid } = await res.json();
+      console.log("File uploaded with CID:", res.data);
+      console.log("url", `https://${res.data.cid}.ipfs.w3s.link/`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadImage = async () => {
+    setShowModal(false);
+    const formData = new FormData();
+
+    formData.append("file", image);
+
+    const metadata = JSON.stringify({
+      name: image.name,
+      keyvalues: {
+        customKey: "customValue",
+        customKey2: "customValue2",
+      },
+    });
+    formData.append("pinataMetadata", metadata);
+
+    const options = JSON.stringify({
+      cidVersion: 0,
+    });
+    formData.append("pinataOptions", options);
+
+    try {
+      const res = await axios.post(
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        formData,
+        {
+          maxBodyLength: "Infinity",
+          headers: {
+            "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+            Authorization: `Bearer ${JWT}`,
+          },
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -36,30 +104,64 @@ const Dashboard = () => {
     }
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(image);
-    console.log(dataset);
-    console.log(title);
-    console.log(details);
+    if (!image) return;
+    if (!dataset) return;
+    // await uploadImage(image.name);
+    // await uploadFile();
+    toast.success("Dataset mint successful!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setImage();
+    setDetails("");
+    setTitle("");
+    setTime(0);
+    setDataset();
+    setShowModal(false);
   };
 
   const handleClaim = (e) => {
     setShowModal2(false);
-    if(e.target.value === "grantAccess"){
-      alert("Access Granted!")
+    if (e.target.value === "grantAccess") {
+      toast.success("Access Granted!!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
-    if(e.target.value === "fileClaim"){
-      alert("Claimed successfully!")
+    if (e.target.value === "fileClaim") {
+      toast.success("Claimed successfully!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
+  };
 
   const posts = [
     {
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       size: "20 kB",
       format: "CSV",
       tags: "Education",
@@ -71,7 +173,7 @@ const Dashboard = () => {
     {
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       size: "20 kB",
       format: "CSV",
       tags: "Education",
@@ -83,7 +185,7 @@ const Dashboard = () => {
     {
       title: "Sarwa Siksha Abhiyan Data",
       details:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci in doloribus nesciunt velit vero obcaecati eius error rem nemo repudiandae!",
+        "Sarva Shiksha Abhiyan, or SSA, is an Indian Government programme aimed at the universalisation of Elementary education in a time bound manner, the 86th Amendment to the Constitution of India making free and compulsory education to children.",
       size: "20 kB",
       format: "CSV",
       tags: "Education",
@@ -97,6 +199,7 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen w-[100%]">
       <Meta title="TrustM(: | Dashboard" />
+      <ToastContainer />
       <div className="flex min-h-full w-[100%]">
         {showModal && (
           <div className="fixed h-[100vh] w-[100%] top-0 z-50">
@@ -164,8 +267,8 @@ const Dashboard = () => {
                         <div>
                           <input
                             type="number"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
                             placeholder="Finality time (min)"
                             className="py-1.5 mt-2 px-3  rounded-lg w-[100%] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-300 dark:focus:ring-pink-600 focus:border-transparent"
                           />
@@ -215,13 +318,21 @@ const Dashboard = () => {
                     <h1 className="pb-6 text-lg font-semibold">
                       Give DAO access to Dataset
                     </h1>
-                    <button value="grantAccess" onClick={handleClaim} className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[2rem] font-semibold py-2 rounded-3xl mt-2  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221]">
+                    <button
+                      value="grantAccess"
+                      onClick={handleClaim}
+                      className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[2rem] font-semibold py-2 rounded-3xl mt-2  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221]"
+                    >
                       Grant Access
                     </button>
                     <h1 className="pt-10 pb-6 text-lg font-semibold">
                       File for Claim!
                     </h1>
-                    <button value="fileClaim" onClick={handleClaim} className="bg-red-600 hover:bg-red-700 rounded-full py-2 px-7 text-white font-semibold">
+                    <button
+                      value="fileClaim"
+                      onClick={handleClaim}
+                      className="bg-red-600 hover:bg-red-700 rounded-full py-2 px-7 text-white font-semibold"
+                    >
                       File for Claim
                     </button>
                   </div>

@@ -55,9 +55,7 @@ const SaleCard = (props) => {
         />
         {props.status === "ended" && (
           <button
-            onClick={() => {
-              alert("Funds Withdrawn");
-            }}
+            onClick={props.withdrawFunds}
             className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[1rem] font-semibold py-2 rounded-3xl mt-3  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221] text-sm"
           >
             WithDraw Funds
