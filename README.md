@@ -24,7 +24,7 @@ We also faced some problem in finalising how our dao backed marketplace will wor
 Nonetheless, we have a lot of fun building this project.
 
 
-# Sample Hardhat Project
+## Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
