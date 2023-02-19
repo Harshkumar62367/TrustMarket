@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { GoPrimitiveDot } from "react-icons/go";
 
-const VotingCard = (props) => {
+const SaleCard = (props) => {
   return (
     <div className="dark:border-gray-800 w-[42rem] rounded-3xl p-6 flex justify-between dark:bg-[#0f0d14] shadow-md mb-6">
       <div className="max-w-md">
@@ -26,9 +26,15 @@ const VotingCard = (props) => {
           </span>
         </div>
         <div className="text-sm">
-          <span> Fraud Claimed At: </span>
+          <span> Status : </span>
           <span className="dark:text-gray-300 text-gray-500">
-            {props.createdAt}
+            {props.status}
+          </span>
+        </div>
+        <div className="text-sm">
+          <span> Finality time : </span>
+          <span className="dark:text-gray-300 text-gray-500">
+            {props.finalityTime}
           </span>
         </div>
         <div className="flex items-center gap-1 text-sm">
@@ -39,7 +45,7 @@ const VotingCard = (props) => {
           <p className="text-gray-500"> ({props.format})</p>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center ">
         <Image
           src={props.image}
           alt="image"
@@ -47,18 +53,19 @@ const VotingCard = (props) => {
           width={110}
           className="rounded-lg border dark:border-gray-600 border-gray-300"
         />
-        <button
-          onClick={() => {
-            props.setShowPopup(true);
-            props.setSelected(Number(props.id) - 1);
-          }}
-          className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[2rem] font-semibold py-1.5 rounded-3xl mt-3  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221] "
-        >
-          Vote
-        </button>
+        {props.status === "ended" && (
+          <button
+            onClick={() => {
+              alert("Funds Withdrawn");
+            }}
+            className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[1rem] font-semibold py-2 rounded-3xl mt-3  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221] text-sm"
+          >
+            WithDraw Funds
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-export default VotingCard;
+export default SaleCard;

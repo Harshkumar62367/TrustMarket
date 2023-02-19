@@ -23,7 +23,7 @@ const Nav2 = () => {
     <div className="bg-opacity-5 backdrop-blur-md drop-shadow-md z-50 font-mono flex flex-row fixed bg-pink-400 dark:bg-gray-800 dark:bg-opacity-5 dark:backdrop-blur-md dark:drop-shadow-md  w-[100vw] items-center justify-center text-gray-800 dark:text-white border-b-[1px] border-gray-200 dark:border-[#2F304E]">
       <div className="flex items-center justify-between  lg:justify-evenly w-[100%] md:w-[75rem] px-4 md:px-3 py-3">
         <div className="flex items-center">
-          <Link href="/">
+          <Link href="/marketplace">
             <p
               className="font-sans text-2xl font-extrabold ml-2 md:ml-5 lg:ml-0 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-600 cursor-pointer"
               onClick={() => {
@@ -37,16 +37,6 @@ const Nav2 = () => {
         </div>
         <div className="flex items-center">
           <ul className="md:flex hidden">
-            <li
-              className={
-                focus === 1
-                  ? "hover:underline mx-3 border-pink-300  border-[3px]  bg-pink-50 dark:bg-[#7b2c5d] px-2 py-1"
-                  : "hover:underline px-2 py-1 mx-3 border-[3px] border-none dark:border-gray-800"
-              }
-              onClick={() => setFocus(1)}
-            >
-              <Link href="/marketplace">Marketplace</Link>
-            </li>
             <li
               className={
                 focus === 2
@@ -66,6 +56,16 @@ const Nav2 = () => {
               onClick={() => setFocus(3)}
             >
               <Link href="/vote">Vote</Link>
+            </li>
+            <li
+              className={
+                focus === 1
+                  ? "hover:underline mx-3 border-pink-300  border-[3px]  bg-pink-50 dark:bg-[#7b2c5d] px-2 py-1"
+                  : "hover:underline px-2 py-1 mx-3 border-[3px] border-none dark:border-gray-800"
+              }
+              onClick={() => setFocus(1)}
+            >
+              <Link href="/onsale">Sale</Link>
             </li>
           </ul>
         </div>
@@ -139,19 +139,6 @@ const Nav2 = () => {
               </Link>
             </li>
             <li>
-              <Link href="/marketplace">
-                <button
-                  onClick={() => {
-                    setMenu(false);
-                    setFocus(1);
-                  }}
-                  className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
-                >
-                  Marketplace
-                </button>
-              </Link>
-            </li>
-            <li>
               <Link href="/dashboard">
                 <button
                   onClick={() => {
@@ -174,6 +161,19 @@ const Nav2 = () => {
                   className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
                 >
                   Vote
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/onsale">
+                <button
+                  onClick={() => {
+                    setMenu(false);
+                    setFocus(1);
+                  }}
+                  className="hover:underline hover:border-pink-300 dark:hover:border-pink-300  border-4 border-white dark:border-gray-700 py-1.5 w-[100%] pl-4 cursor-pointer hover:bg-pink-50 dark:hover:bg-gray-600 text-left"
+                >
+                  Sale
                 </button>
               </Link>
             </li>

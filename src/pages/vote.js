@@ -20,6 +20,7 @@ const Vote = () => {
       seller: "0x23ab..32c",
       buyer: "0x23ab..32c",
       size: "20 kB",
+      createdAt:"12 Feb, 2023 12:00:00"
     },
     {
       id: "2.",
@@ -32,6 +33,7 @@ const Vote = () => {
       seller: "0x23ab..32c",
       buyer: "0x23ab..32c",
       size: "20 kB",
+      createdAt:"12 Feb, 2023 12:00:00"
     },
     {
       id: "3.",
@@ -44,6 +46,7 @@ const Vote = () => {
       seller: "0xf057...c496",
       buyer: "0x23ab..32c",
       size: "20 kB",
+      createdAt:"12 Feb, 2023 12:00:00"
     },
   ];
 
@@ -166,6 +169,7 @@ const Vote = () => {
             image={item.image}
             setSelected={setSelected}
             setShowPopup={setShowPopup}
+            createdAt={item.createdAt}
           />
         ))}
       </div>
