@@ -41,10 +41,13 @@ const VotingCard = (props) => {
           width={110}
           className="rounded-lg border dark:border-gray-600 border-gray-300"
         />
-        <button onClick={() => {
-            props.setShowPopup(true)
-            props.setSelected(Number(props.id)-1)
-        }} className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[2rem] font-semibold py-1.5 rounded-3xl mt-3  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221] ">
+        <button
+          onClick={() => {
+            props.setShowPopup(true);
+            props.setSelected(Number(props.id) - 1);
+          }}
+          className="text-white  bg-gradient-to-r  from-pink-500 to-purple-700 px-[2rem] font-semibold py-1.5 rounded-3xl mt-3  hover:from-purple-700 hover:to-pink-500 dark:hover:bg-[#0F1221] "
+        >
           Vote
         </button>
       </div>

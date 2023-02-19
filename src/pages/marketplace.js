@@ -1,7 +1,7 @@
 import Meta from "@/components/Meta";
 import React from "react";
 import Image from "next/image";
-import DataCard from "@/components/DataCard";
+import {DataCard} from "@/components/DataCard";
 
 const Marketplace = () => {
   const datatags = [
@@ -161,6 +161,7 @@ const Marketplace = () => {
           </div>
         </section>
       </div>
+
     </>
   );
 };

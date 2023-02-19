@@ -97,17 +97,19 @@ export default function Home() {
       </h1>
 
       <p className="text-center font-light lg:text-2xl md:text-2xl text-xl  max-w-[80%] m-auto">
-        Easy, one command deployments with free{" "}
+        Easy, one tap access to{" "}
         <span className="font-bold text-2xl md:text-3xl lg:text-3xl">
-          depulso.site
+          trusted
         </span>{" "}
-        subdomains.
+        datasets.
       </p>
       <div className="flex">
         <p className="text-center font-light text-xl py-12 pb-5 flex items-center m-auto">
           <span>Built on </span>
-          <FaEthereum className="text-gray-400 text-2xl" />
-          <span className="text-gray-400 font-semibold">Ethereum</span>
+          <FaEthereum className="dark:text-gray-400 text-gray-600 text-2xl" />
+          <span className="dark:text-gray-400 text-gray-600 font-semibold">
+            Ethereum
+          </span>
         </p>
       </div>
 
